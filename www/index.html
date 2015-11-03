@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Baby meal">
+    <title>Baby meal</title>
+
+    <!-- Bootstrap -->
+    <script src="./node_modules/jquery/dist/jquery.min.js" ></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+
+    <!-- Angular2 scripts -->
+    <script src="./node_modules/traceur-runtime/index.js"></script>
+    <script src="./node_modules/systemjs/dist/system.src.js"></script>
+    <script src="./node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="./node_modules/angular2/bundles/http.min.js"></script>
+    
+    <!-- Cordova reference, this is added to your app when it's built. -->
+    <!-- This will return a 404 error when building, and is expected.  Cordova JavaScript src files are dynamically written to the html.-->
+    <script src="cordova.js"></script>
+	
+	<!-- This file loads the applications JavaScript files.-->
+    <script src="js/index.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="./css/babymeal.css" />
+  </head>
+  <body>
+    <div class="app container">
+      <babymeal-app>Loading...</babymeal-app>
+    </div>
+  </body>
+</html>

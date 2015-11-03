@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "../js/"
+  },
+  "files": [
+    "./index.ts",
+    "./app.ts",
+	"./main.ts",
+    "./externals/collections.ts",
+    "./typings/tsd.d.ts"
+  ]
+}
