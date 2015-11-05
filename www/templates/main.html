@@ -5,7 +5,7 @@
         </div>
     </div>
 </nav>
-<form class="form-horizontal" role="form" (ng-submit)="onSubmit()" #hf="form">
+<form class="form-horizontal" role="form" #hf="form">
     <div class="panel panel-primary">
         <div class="panel-heading">Jour & Heure</div>
         <div class="form-group">
@@ -21,16 +21,17 @@
             <label class="control-label col-md-2">Type de lait</label>
             <div class="col-md-8">
                 <ul class="list-group">
-                    <li *ng-for="#milktype of milktypes" class="list-group-item" (click)="updateMeal(milktype)">{{milktype.label}}</li>
+                    <li *ng-for="#milktype of milktypes" class="list-group-item" (click)="updateMeal(milktype)" [ng-class]="selection(milktype)">{{milktype.label}} ({{milktype.additionalData}})</li>
                 </ul>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-2">Garniture</label>
-            <ul class="col-md-10">
+            <div class="col-md-10">
                 <ul class="list-group">
-                    <li *ng-for="#garnish of garnishes" class="list-group-item" (click)="updateMeal(garnish)">{{garnish.label}}</li>
+                    <li *ng-for="#garnish of garnishes" class="list-group-item" (click)="updateMeal(garnish)" [ng-class]="selection(garnish)">{{garnish.label}}</li>
                 </ul>
+            </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-2">Quantité</label>
@@ -44,11 +45,9 @@
         <div class="form-group">
             <label class="control-label col-md-2">Aliment</label>
             <div class="col-md-10">
-                <div *ng-for="#mealtype of mealtypes" class="checkbox checkbox-inline">
-                    <label class="checkbox checkbox-inline">
-                        <input type="checkbox" value="{{mealtype}}" id="{{mealtype}}" class="checkbox-inline" (click)="updateMeal(mealtype)">{{mealtype.label}}
-                    </label>
-                </div>
+                <accordion-group *ng-for="#mealtype of mealtypes" heading="mealtype.label">
+                    <div *ng-for="#fruit of fruits">{{fruit.label}}</div>
+                </accordion-group>
             </div>
         </div>
         <div class="form-group">
@@ -75,12 +74,18 @@
     <div class="panel panel-danger">
         <div class="panel-heading">Médicaments</div>
         <div class="form-group">
-            <div class="col-md-12">
-                <div *ng-for="#drug of drugs" class="checkbox-inline">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="{{drug}}" id="{{drug}}" class="checkbox-inline">{{drug.label}}
-                    </label>
-                </div>
+            <div class="col-md-10">
+                <ul class="list-group">
+                    <div *ng-for="#drug of drugs">
+                    <li  class="list-group-item" (click)="updateMeal(drug)" [ng-class]="selection(drug)">
+                        {{drug.label}}
+                    </li>
+                    <div *ng-if="hasDrug(drug)">
+                        <input *ng-if="hasDrug(drug)" type="number" (mouseout)="addDrug(drug, $event.target.value)" (load)="addDrug(drug, $event.target.value)">
+                        {{drug.additionalData}}
+                    </div>
+                    </div>
+                </ul>
             </div>
         </div>
     </div>
