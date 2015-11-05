@@ -7,8 +7,7 @@
     "angular2": "^2.0.0-alpha.44",
     "bootstrap": "3.3.5",
     "jquery": "2.1.4",
-    "systemjs": "^0.19.5",
-    "traceur-runtime": "0.0.59"
+    "ur-runtime": "0.0.59"
   },
   "devDependencies": {
     "live-server": "^0.8.1",
@@ -16,9 +15,9 @@
   },
   "scripts": {
     "tsc": "tsc -p ts -w",
-    "start": "live-server"
+    "start": "live-server --port 8181"
   },
   "keywords": [],
-  "author": "mvincent",
+  "author": nt",
   "license": "ISC"
 }
