@@ -7,7 +7,6 @@
     "angular2": "^2.0.0-alpha.44",
     "bootstrap": "3.3.5",
     "jquery": "2.1.4",
-    "ng2-bootstrap": "^0.44.6",
     "systemjs": "^0.19.5",
     "traceur-runtime": "0.0.59"
   },
@@ -17,7 +16,7 @@
   },
   "scripts": {
     "tsc": "tsc -p ts -w",
-    "start": "live-server --port=8181"
+    "start": "live-server"
   },
   "keywords": [],
   "author": "mvincent",
