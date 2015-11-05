@@ -17,13 +17,26 @@ export class JsonBibber {
 }
 
 export class Food {
-    public elements: collections.LinkedList<Masterdata> = new collections.LinkedList<Masterdata>();
+    public aliments: collections.LinkedList<Aliment> = new collections.LinkedList<Aliment>();
 }
 
 class JsonFood {
-    public elements: Array<Masterdata> = new Array<Masterdata>();
+    public aliments: Array<JsonAliment> = new Array<JsonAliment>();
 }
 
+export class Aliment {
+    public type: Masterdata;
+    public tasts: collections.LinkedList<Masterdata> = new collections.LinkedList<Masterdata>();
+
+    toString() {
+        return 'Aliment_' + this.type.label + '_' + this.tasts.size();
+    }
+}
+
+class JsonAliment {
+    public type: Masterdata;
+    public tasts: Array<Masterdata> = new Array<Masterdata>();
+}
 
 export class DrugInfo {
     public drugType: Masterdata;
@@ -36,7 +49,7 @@ class JsonMeal {
     public bibber: JsonBibber = new JsonBibber;
     public food: JsonFood = new JsonFood;
     public drugs: Array<DrugInfo> = new Array<DrugInfo>();
-
+    public comments;
 }
 
 export class Meal {
@@ -46,6 +59,7 @@ export class Meal {
     public food: Food = new Food;
     public drugs: collections.Dictionary<Masterdata, number> = new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.toString());
     public drugsInfo: collections.LinkedList<DrugInfo> = new collections.LinkedList<DrugInfo>();
+    public comments;
 
     prepareForPost(): string {
         var cleanMeal: JsonMeal = new JsonMeal();
@@ -59,6 +73,13 @@ export class Meal {
         cleanMeal.bibber = cleanBibber;
 
         var cleanFood: JsonFood = new JsonFood();
+        this.food.aliments.forEach((element: Aliment): boolean => {
+            var tmpAliment: JsonAliment = new JsonAliment;
+            tmpAliment.type = element.type;
+            tmpAliment.tasts = element.tasts.toArray();
+            cleanFood.aliments.push(tmpAliment);
+            return true;
+        });
         cleanMeal.food = cleanFood;
 
         var info: Array<DrugInfo> = new Array<DrugInfo>();
@@ -71,6 +92,9 @@ export class Meal {
         })
         console.log('Drugs info : ' + info);
         cleanMeal.drugs = info;
+
+        cleanMeal.comments = this.comments;
+
         return JSON.stringify(cleanMeal);
     }
 }
