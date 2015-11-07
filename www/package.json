@@ -15,7 +15,7 @@
   },
   "scripts": {
     "tsc": "tsc -p ts -w",
-    "start": "live-server --port 8181"
+    "start": "live-server"
   },
   "keywords": [],
   "author": "mvincent",
