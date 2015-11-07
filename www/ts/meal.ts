@@ -26,6 +26,7 @@ class JsonFood {
 
 export class Aliment {
     public type: Masterdata;
+    public quantity: number;
     public tasts: collections.LinkedList<Masterdata> = new collections.LinkedList<Masterdata>();
 
     toString() {
@@ -35,6 +36,7 @@ export class Aliment {
 
 class JsonAliment {
     public type: Masterdata;
+    public quantity: number;
     public tasts: Array<Masterdata> = new Array<Masterdata>();
 }
 
@@ -76,6 +78,7 @@ export class Meal {
         this.food.aliments.forEach((element: Aliment): boolean => {
             var tmpAliment: JsonAliment = new JsonAliment;
             tmpAliment.type = element.type;
+            tmpAliment.quantity = element.quantity;
             tmpAliment.tasts = element.tasts.toArray();
             cleanFood.aliments.push(tmpAliment);
             return true;

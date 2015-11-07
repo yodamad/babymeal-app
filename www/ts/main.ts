@@ -103,6 +103,7 @@ export class AppComponent {
         } else if (md.type == Constants.GARNISH) {
             if (this.meal.bibber.garnish && this.meal.bibber.garnish.label == md.label) {
                 console.log('Garnish already set');
+                this.meal.bibber.garnish = null;
             } else {
                 console.log('Set garnish to ' + md.label);
                 this.meal.bibber.garnish = md;
@@ -193,6 +194,16 @@ export class AppComponent {
         return md.additionalData == Constants.FRUIT;
     }
 
+    setMealQuantity(md: Masterdata, quantity: number) {
+        this.meal.food.aliments.forEach((aliment: Aliment) => {
+            if (md.label == aliment.type.label) {
+                aliment.quantity = quantity;
+                console.log('Adding ' + quantity + ' for ' + md.label);
+            }
+            return true;
+        })
+    }
+
     addDrug(md: Masterdata, quantity: number) {
         console.log('Adding ' + quantity + ' for ' + md.label);
         this.meal.drugs.setValue(AppComponent.cloneMasterdata(md), +quantity);
@@ -232,7 +243,11 @@ export class AppComponent {
             err => console.log(err),
             () => console.log('Post complete')
         );
-        console.log('Data sent');
+        console.log('Bibber saved');
+    }
+
+    public reset() {
+        this.meal = new Meal;
     }
 };
 bootstrap(AppComponent);
