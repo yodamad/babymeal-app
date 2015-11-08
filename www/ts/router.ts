@@ -1,0 +1,30 @@
+///<reference path="../node_modules/angular2/angular2.d.ts"/>
+///<reference path="../node_modules/angular2/router.d.ts"/>
+/**
+ * Created by mvincent on 07/11/2015.
+ */
+import {bootstrap, Component, View, FORM_DIRECTIVES, CORE_DIRECTIVES, provide} from 'angular2/angular2';
+import {HTTP_PROVIDERS, Http, Headers} from 'angular2/http';
+import {RouteConfig,  ROUTER_DIRECTIVES, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
+import {AppComponent} from './main';
+import {Constants} from './constants';
+import {HistoryComponent} from './history';
+import {Masterdata} from './masterdata';
+import {Meal, Aliment, Food} from './meal';
+import {collections} from './externals/collections';
+
+@Component({
+    selector: 'app',
+    templateUrl: './templates/main.html',
+    directives: [ROUTER_DIRECTIVES]
+})
+@RouteConfig([
+    {path: "/Bibber", component: AppComponent, as: "Bibber"},
+    {path: "/History", component: HistoryComponent, as: "History"}
+])
+export class AppRouter {
+    constructor() {
+        console.log('Init router');
+    }
+}
+bootstrap(AppRouter, [ROUTER_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy})]);

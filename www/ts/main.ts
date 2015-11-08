@@ -1,22 +1,25 @@
+///<reference path="../node_modules/angular2/router.d.ts"/>
+///<reference path="masterdata.ts"/>
 /**
  * Created by mvincent on 24/10/2015.
  */
-import {Component, View, bootstrap, FORM_DIRECTIVES, CORE_DIRECTIVES,} from 'angular2/angular2';
+import {Component, View, FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Http, HTTP_PROVIDERS, Headers} from 'angular2/http';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouteParams} from 'angular2/router';
 import {Masterdata} from './masterdata';
 import {Meal, Aliment} from './meal';
 import {Constants} from './constants';
 import {collections} from './externals/collections';
-import NumberFormat = Intl.NumberFormat;
 
 @Component({
-    selector: 'babymeal-app',
+    selector: 'bibber',
     viewProviders: HTTP_PROVIDERS
 })
 @View({
-    templateUrl: './templates/main.html',
+    templateUrl: './templates/bibber.html',
     styleUrls: ['./css/babymeal.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class AppComponent {
     public vegetables: Array<Masterdata>;
@@ -250,4 +253,3 @@ export class AppComponent {
         this.meal = new Meal;
     }
 };
-bootstrap(AppComponent);

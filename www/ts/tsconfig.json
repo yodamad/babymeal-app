@@ -13,8 +13,17 @@
   "files": [
     "./index.ts",
     "./app.ts",
-	"./main.ts",
+    "./router.ts",
+    "./main.ts",
     "./externals/collections.ts",
-    "./typings/tsd.d.ts"
+    "./typings/tsd.d.ts",
+    "./masterdata.ts",
+    "./meal.ts",
+    "./history.ts",
+    "./constants.ts",
+    "./typings/systemjs/systemjs.d.ts",
+    "../node_modules/angular2/bundles/typings/angular2/http.d.ts",
+    "../node_modules/angular2/bundles/typings/angular2/angular2.d.ts",
+    "../node_modules/angular2/bundles/typings/angular2/router.d.ts"
   ]
 }

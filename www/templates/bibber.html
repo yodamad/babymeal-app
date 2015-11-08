@@ -1,0 +1,133 @@
+<form class="form-horizontal" role="form" #hf="form">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Jour & Heure</div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="date" class="form-control" [(ng-model)]="meal.mealdate">
+                <input type="time" class="form-control" [(ng-model)]="meal.mealtime">
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">Biberon</div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Type de lait</label>
+
+            <div class="col-md-8">
+                <ul class="list-group">
+                    <li *ng-for="#milktype of milktypes" class="list-group-item" (click)="updateMeal(milktype)"
+                        [ng-class]="selection(milktype)">{{milktype.label}} ({{milktype.additionalData}})
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Garniture</label>
+
+            <div class="col-md-10">
+                <ul class="list-group">
+                    <li *ng-for="#garnish of garnishes" class="list-group-item" (click)="updateMeal(garnish)"
+                        [ng-class]="selection(garnish)">{{garnish.label}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Quantité</label>
+
+            <div class="col-md-10">
+                <input type="number" [(ng-model)]="meal.bibber.quantity">
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">Compléments</div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Aliment</label>
+
+            <div class="col-md-10">
+                <ul class="list-group">
+                    <div *ng-for="#mealtype of mealtypes">
+                        <li class="list-group-item" (click)="updateMeal(mealtype)" [ng-class]="selection(mealtype)">
+                            {{mealtype.label}}
+                        </li>
+                        <div *ng-if="hasMealType(mealtype)">
+                            <div *ng-if="isSaltMeal(mealtype)">
+                                <div *ng-for="#vegetable of vegetables" class="checkbox checkbox-inline">
+                                    <label class="checkbox checkbox-inline">
+                                        <input type="checkbox" value="{{vegetable}}" id="{{vegetable}}"
+                                               class="checkbox-inline" (click)="updateAliment(mealtype, vegetable)">{{vegetable.label}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ng-if="isSugarMeal(mealtype)">
+                                <div *ng-for="#fruit of fruits" class="checkbox checkbox-inline">
+                                    <label class="checkbox checkbox-inline">
+                                        <input type="checkbox" value="{{fruit}}" id="{{fruit}}"
+                                               class="checkbox-inline" (click)="updateAliment(mealtype, fruit)">{{fruit.label}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="number" step="0.5" (mouseout)="setMealQuantity(mealtype, $event.target.value)"
+                                       (load)="addDrug(mealtype, $event.target.value)">{{mealtype.unit}}
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-danger">
+        <div class="panel-heading">Médicaments</div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <ul class="list-group">
+                    <div *ng-for="#drug of drugs">
+                        <li class="list-group-item" (click)="updateMeal(drug)" [ng-class]="selection(drug)">
+                            {{drug.label}}
+                        </li>
+                        <div *ng-if="hasDrug(drug)">
+                            <input *ng-if="hasDrug(drug)" type="number" step="0.5" (mouseout)="addDrug(drug, $event.target.value)"
+                                   (load)="addDrug(drug, $event.target.value)">
+                            {{drug.additionalData}}
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-warning">
+        <div class="panel-heading">Commentaires</div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <textarea [(ng-model)]="meal.comments" ></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button [disabled]="!hf.form.valid" class="btn btn-default" (click)="eat()" data-toggle="modal" data-target="#successmodal">Miam</button>
+            <button [disabled]="!hf.form.valid" class="btn btn-default" (click)="reset()">Oups</button>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="successmodal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header alert-success">
+                    <button type="button" class="close" data-dismiss="modal" (click)="reset()">&times;</button>
+                    <h4 class="modal-title">Sauvegarde</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Biberon sauvegardé</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="reset()">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
