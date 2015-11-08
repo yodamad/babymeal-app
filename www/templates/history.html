@@ -1,1 +1,7 @@
-Hello separated history !!
+<form class="form-horizontal" role="form" #hf="form">
+    <div class="form-group">
+        <ul class="list-group">
+            <li class="list-group-item" *ng-for="#meal of meals">{{meal.date}} {{meal.time}}</li>
+        </ul>
+    </div>
+</form>

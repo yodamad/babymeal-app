@@ -45,7 +45,7 @@ export class DrugInfo {
     public quantity: number;
 }
 
-class JsonMeal {
+export class JsonMeal {
     public date: string;
     public time: string;
     public bibber: JsonBibber = new JsonBibber;

@@ -7,11 +7,7 @@ import {bootstrap, Component, View, FORM_DIRECTIVES, CORE_DIRECTIVES, provide} f
 import {HTTP_PROVIDERS, Http, Headers} from 'angular2/http';
 import {RouteConfig,  ROUTER_DIRECTIVES, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {AppComponent} from './main';
-import {Constants} from './constants';
 import {HistoryComponent} from './history';
-import {Masterdata} from './masterdata';
-import {Meal, Aliment, Food} from './meal';
-import {collections} from './externals/collections';
 
 @Component({
     selector: 'app',
