@@ -6,7 +6,7 @@ import {Http, HTTP_PROVIDERS, Headers} from 'angular2/http';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Constants} from './constants';
-import {JsonMeal} from './meal';
+import {JsonMeal, JsonBibber, JsonFood, JsonAliment} from './meal';
 
 @Component({
     selector: 'history-app',
@@ -18,9 +18,9 @@ import {JsonMeal} from './meal';
 })
 export class HistoryComponent {
 
-    public meals: Array<JsonMeal> = new Array<JsonMeal>();
+    public meals:Array<JsonMeal> = new Array<JsonMeal>();
 
-    constructor(public http: Http) {
+    constructor(public http:Http) {
         this.getMeals();
     }
 
@@ -34,4 +34,39 @@ export class HistoryComponent {
                 () => console.log('Meals loaded !')
             )
     };
+
+    hasMilks(bibber:JsonBibber):boolean {
+        console.log('Check milks : ' + bibber.milks);
+        if (bibber.milks) {
+            return bibber.milks.length > 0;
+        } else {
+            return false;
+        }
+    }
+
+    hasFood(food:JsonFood):boolean {
+        console.log('Check food');
+        if (food) {
+            if (food.aliments) {
+                return food.aliments.length > 0;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    hasTast(aliment:JsonAliment):boolean {
+        console.log('Check aliment');
+        if (aliment) {
+            if (aliment.tasts) {
+                return aliment.tasts.length > 0;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

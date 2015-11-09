@@ -20,7 +20,7 @@ export class Food {
     public aliments: collections.LinkedList<Aliment> = new collections.LinkedList<Aliment>();
 }
 
-class JsonFood {
+export class JsonFood {
     public aliments: Array<JsonAliment> = new Array<JsonAliment>();
 }
 
@@ -34,7 +34,7 @@ export class Aliment {
     }
 }
 
-class JsonAliment {
+export class JsonAliment {
     public type: Masterdata;
     public quantity: number;
     public tasts: Array<Masterdata> = new Array<Masterdata>();
