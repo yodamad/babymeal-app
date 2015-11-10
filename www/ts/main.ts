@@ -176,6 +176,10 @@ export class AppComponent {
         return this.meal.drugs.containsKey(tmpMd)
     }
 
+    drugValue(md: Masterdata): number {
+        return this.meal.drugs.getValue(md);
+    }
+
     hasMealType(md: Masterdata): boolean {
         var found: boolean = false;
         if (this.meal.food.aliments.size() > 0) {
