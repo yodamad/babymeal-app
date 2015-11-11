@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <button class="btn btn-default" (click)="poop()" data-toggle="modal" data-target="#successmodal">Caca!!!</button>
+    <button class="btn btn-default" style="margin-top: 10px" (click)="poop()" data-toggle="modal" data-target="#successmodal">Caca!!!</button>
     <!-- Modal -->
     <div id="successmodal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -43,6 +43,8 @@
     </div>
 </div>
 <hr>
+
+<button class="btn btn-default" style="margin-bottom: 10px" (click)="getPoops()">Refresh</button>
 
 <div class="panel-group">
     <div class="panel panel-default" *ng-for="#poop of poops">
