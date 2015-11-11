@@ -12,8 +12,8 @@ export class Constants {
     public static VEGETABLE: string = 'VEGETABLE';
 
     // URLs
-    public static ROOT_URL: string = "http://babymeal-jahland.rhcloud.com";
-    //public static ROOT_URL: string = "http://localhost:8080";
+    //public static ROOT_URL: string = "http://babymeal-jahland.rhcloud.com";
+    public static ROOT_URL: string = "http://localhost:8080";
     public static MD_URL: string = Constants.ROOT_URL + "/masterdata/search/findByType?type=";
     public static MEAL_URL: string = Constants.ROOT_URL + "/meal";
     public static POOP_URL: string = Constants.ROOT_URL + "/poop";
@@ -23,4 +23,34 @@ export class Constants {
     public static MILKTYPES_URL: string = Constants.MD_URL + Constants.MILKTYPE;
     public static FRUITS_URL: string = Constants.MD_URL + Constants.FRUIT;
     public static VEGETABLES_URL: string = Constants.MD_URL + Constants.VEGETABLE;
+
+    static printDate():string {
+        var currentDate:Date = new Date();
+        var day:string;
+        if (currentDate.getDay() < 10) {
+            day = 0 + currentDate.getDay().toString();
+        } else {
+            day = currentDate.getDay().toString();
+        }
+        ;
+
+        return currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + day;
+    }
+
+    static printTime():string {
+        var currentDate:Date = new Date();
+        var hours:string;
+        var minutes:string;
+        if (currentDate.getHours() < 10) {
+            hours = 0 + currentDate.getHours().toString();
+        } else {
+            hours = currentDate.getHours().toString();
+        }
+        if (currentDate.getMinutes() < 10) {
+            minutes = 0 + currentDate.getMinutes().toString();
+        } else {
+            minutes = currentDate.getMinutes().toString();
+        }
+        return hours + ':' + minutes;
+    }
 }

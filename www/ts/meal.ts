@@ -3,6 +3,7 @@
  */
 import {collections} from './externals/collections';
 import {Masterdata} from './masterdata';
+import {Constants} from './constants';
 
 export class Bibber {
     public milktypes: collections.LinkedList<Masterdata> = new collections.LinkedList<Masterdata>();
@@ -55,8 +56,8 @@ export class JsonMeal {
 }
 
 export class Meal {
-    public mealdate: string;
-    public mealtime: string;
+    public mealdate: string = Constants.printDate();
+    public mealtime: string = Constants.printTime();
     public bibber: Bibber = new Bibber;
     public food: Food = new Food;
     public drugs: collections.Dictionary<Masterdata, number> = new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.toString());

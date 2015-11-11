@@ -2,8 +2,10 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                {{printDate()}} {{printTime()}}
+                Horaire
             </h4>
+            <input type="date" class="form-control" [(ng-model)]="currentDate">
+            <input type="time" class="form-control" [(ng-model)]="currentTime">
         </div>
         <div class="panel panel-success" *ng-if="!supo">
             <div class="panel-heading">

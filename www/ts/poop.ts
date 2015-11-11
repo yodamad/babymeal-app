@@ -19,6 +19,8 @@ export class PoopComponent {
 
     public supo:boolean = false;
     public poops:Array<Poop> = new Array<Poop>();
+    public currentDate: string = Constants.printDate();
+    public currentTime: string = Constants.printTime();
 
     constructor(public http:Http) {
         this.getPoops()
@@ -43,42 +45,12 @@ export class PoopComponent {
         this.supo = false;
     }
 
-    printDate():string {
-        var currentDate:Date = new Date();
-        var day:string;
-        if (currentDate.getDay() < 10) {
-            day = 0 + currentDate.getDay().toString();
-        } else {
-            day = currentDate.getDay().toString();
-        }
-        ;
-
-        return currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + day;
-    }
-
-    printTime():string {
-        var currentDate:Date = new Date();
-        var hours:string;
-        var minutes:string;
-        if (currentDate.getHours() < 10) {
-            hours = 0 + currentDate.getHours().toString();
-        } else {
-            hours = currentDate.getHours().toString();
-        }
-        if (currentDate.getMinutes() < 10) {
-            minutes = 0 + currentDate.getMinutes().toString();
-        } else {
-            minutes = currentDate.getMinutes().toString();
-        }
-        return hours + ':' + minutes;
-    }
-
     poop() {
         var poopy:Poop = new Poop();
         var currentDate:Date = new Date();
         currentDate.getDate();
-        poopy.date = this.printDate();
-        poopy.time = this.printTime();
+        poopy.date = this.currentDate;
+        poopy.time = this.currentTime;
         poopy.withSuppository = this.supo;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -98,6 +70,8 @@ export class PoopComponent {
 
     reset() {
         this.supo = false;
+        this.currentDate = Constants.printDate();
+        this.currentTime = Constants.printTime();
     }
 
     prettyPrint(poop: Poop): string {
