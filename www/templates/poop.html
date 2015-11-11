@@ -1,0 +1,55 @@
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                {{printDate()}} {{printTime()}}
+            </h4>
+        </div>
+        <div class="panel panel-success" *ng-if="!supo">
+            <div class="panel-heading">
+                <h4 class="panel-title" (click)="addSupo()">
+                    Sans supo
+                </h4>
+            </div>
+        </div>
+        <div class="panel panel-danger" *ng-if="supo">
+            <div class="panel-heading">
+                <h4 class="panel-title" (click)="removeSupo()">
+                    Avec supo
+                </h4>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-default" (click)="poop()" data-toggle="modal" data-target="#successmodal">Caca!!!</button>
+    <!-- Modal -->
+    <div id="successmodal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header alert-success">
+                    <button type="button" class="close" data-dismiss="modal" (click)="reset()">&times;</button>
+                    <h4 class="modal-title">Sauvegarde</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Caca sauvegardé</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="reset()">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="panel-group">
+    <div class="panel panel-default" *ng-for="#poop of poops">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                {{prettyPrint(poop)}}
+            </h4>
+        </div>
+    </div>
+</div>

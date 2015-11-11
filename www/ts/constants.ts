@@ -16,6 +16,7 @@ export class Constants {
     //public static ROOT_URL: string = "http://localhost:8080";
     public static MD_URL: string = Constants.ROOT_URL + "/masterdata/search/findByType?type=";
     public static MEAL_URL: string = Constants.ROOT_URL + "/meal";
+    public static POOP_URL: string = Constants.ROOT_URL + "/poop";
     public static DRUGS_URL: string = Constants.MD_URL + Constants.DRUG;
     public static MEALTYPES_URL: string = Constants.MD_URL + Constants.MEALTYPE;
     public static GARNISHES_URL: string = Constants.MD_URL + Constants.GARNISH;

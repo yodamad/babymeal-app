@@ -8,6 +8,7 @@ import {HTTP_PROVIDERS, Http, Headers} from 'angular2/http';
 import {RouteConfig,  ROUTER_DIRECTIVES, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {AppComponent} from './main';
 import {HistoryComponent} from './history';
+import {PoopComponent} from './poop';
 
 @Component({
     selector: 'app',
@@ -16,7 +17,8 @@ import {HistoryComponent} from './history';
 })
 @RouteConfig([
     {path: "/Bibber", component: AppComponent, as: "Bibber"},
-    {path: "/History", component: HistoryComponent, as: "History"}
+    {path: "/History", component: HistoryComponent, as: "History"},
+    {path: "/Poop", component: PoopComponent, as: "Poop"}
 ])
 export class AppRouter {
     constructor() {

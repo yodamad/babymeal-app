@@ -20,6 +20,7 @@
     "./masterdata.ts",
     "./meal.ts",
     "./history.ts",
+    "./poop.ts",
     "./constants.ts",
     "./typings/systemjs/systemjs.d.ts",
     "../node_modules/angular2/bundles/typings/angular2/http.d.ts",
