@@ -180,6 +180,19 @@ export class AppComponent {
         return this.meal.drugs.getValue(md);
     }
 
+    mealValue(md: Masterdata): number {
+        var quantity: number = 0;
+        if (this.meal.food.aliments.size() > 0) {
+            this.meal.food.aliments.forEach((aliment: Aliment) => {
+                if (aliment.type.label == md.label) {
+                    quantity = aliment.quantity;
+                }
+                return true;
+            });
+        }
+        return quantity;
+    }
+
     hasMealType(md: Masterdata): boolean {
         var found: boolean = false;
         if (this.meal.food.aliments.size() > 0) {

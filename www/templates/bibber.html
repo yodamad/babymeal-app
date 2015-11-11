@@ -69,7 +69,7 @@
                             </div>
                             <div>
                                 <input type="number" step="0.5" (mouseout)="setMealQuantity(mealtype, $event.target.value)"
-                                       (load)="addDrug(mealtype, $event.target.value)">{{mealtype.unit}}
+                                       (load)="addDrug(mealtype, $event.target.value)" [value]="mealValue(mealtype)">{{mealtype.unit}}
                             </div>
                         </div>
                     </div>
