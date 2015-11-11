@@ -53,6 +53,7 @@ export class JsonMeal {
     public food: JsonFood = new JsonFood;
     public drugs: Array<DrugInfo> = new Array<DrugInfo>();
     public comments;
+    public withRegurgitation:boolean;
 }
 
 export class Meal {
@@ -63,6 +64,7 @@ export class Meal {
     public drugs: collections.Dictionary<Masterdata, number> = new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.toString());
     public drugsInfo: collections.LinkedList<DrugInfo> = new collections.LinkedList<DrugInfo>();
     public comments;
+    public regurgitation:boolean = false;
 
     prepareForPost(): string {
         var cleanMeal: JsonMeal = new JsonMeal();
@@ -97,6 +99,7 @@ export class Meal {
         console.log('Drugs info : ' + info);
         cleanMeal.drugs = info;
 
+        cleanMeal.withRegurgitation = this.regurgitation;
         cleanMeal.comments = this.comments;
 
         return JSON.stringify(cleanMeal);

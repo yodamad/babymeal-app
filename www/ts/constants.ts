@@ -12,8 +12,8 @@ export class Constants {
     public static VEGETABLE: string = 'VEGETABLE';
 
     // URLs
-    //public static ROOT_URL: string = "http://babymeal-jahland.rhcloud.com";
-    public static ROOT_URL: string = "http://localhost:8080";
+    public static ROOT_URL: string = "http://babymeal-jahland.rhcloud.com";
+    //public static ROOT_URL: string = "http://localhost:8080";
     public static MD_URL: string = Constants.ROOT_URL + "/masterdata/search/findByType?type=";
     public static MEAL_URL: string = Constants.ROOT_URL + "/meal";
     public static POOP_URL: string = Constants.ROOT_URL + "/poop";

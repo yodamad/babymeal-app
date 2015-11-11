@@ -279,6 +279,14 @@ export class AppComponent {
         console.log('Bibber saved');
     }
 
+    addRegurgitation() {
+        this.meal.regurgitation = true;
+    }
+
+    removeRegurgitation() {
+        this.meal.regurgitation = false;
+    }
+
     public reset() {
         this.meal = new Meal;
     }
