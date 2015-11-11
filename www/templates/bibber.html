@@ -54,7 +54,7 @@
                             <div *ng-if="isSaltMeal(mealtype)">
                                 <div *ng-for="#vegetable of vegetables" class="checkbox checkbox-inline">
                                     <label class="checkbox checkbox-inline">
-                                        <input type="checkbox" value="{{vegetable}}" id="{{vegetable}}"
+                                        <input type="checkbox" value="{{vegetable}}" id="{{vegetable}}" [checked]="tastValue(mealtype, vegetable)"
                                                class="checkbox-inline" (click)="updateAliment(mealtype, vegetable)">{{vegetable.label}}
                                     </label>
                                 </div>
@@ -62,7 +62,7 @@
                             <div *ng-if="isSugarMeal(mealtype)">
                                 <div *ng-for="#fruit of fruits" class="checkbox checkbox-inline">
                                     <label class="checkbox checkbox-inline">
-                                        <input type="checkbox" value="{{fruit}}" id="{{fruit}}"
+                                        <input type="checkbox" value="{{fruit}}" id="{{fruit}}" [checked]="tastValue(mealtype, fruit)"
                                                class="checkbox-inline" (click)="updateAliment(mealtype, fruit)">{{fruit.label}}
                                     </label>
                                 </div>

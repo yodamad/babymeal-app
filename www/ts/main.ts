@@ -193,6 +193,19 @@ export class AppComponent {
         return quantity;
     }
 
+    tastValue(mealType: Masterdata, tast: Masterdata): boolean {
+        var check: boolean = false;
+        if (this.meal.food.aliments.size() > 0) {
+            this.meal.food.aliments.forEach((aliment: Aliment) => {
+                if (aliment.type.label == mealType.label) {
+                    check = aliment.tasts.contains(tast);
+                }
+                return true;
+            });
+        }
+        return check;
+    }
+
     hasMealType(md: Masterdata): boolean {
         var found: boolean = false;
         if (this.meal.food.aliments.size() > 0) {
