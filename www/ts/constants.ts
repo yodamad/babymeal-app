@@ -27,14 +27,19 @@ export class Constants {
     static printDate():string {
         var currentDate:Date = new Date();
         var day:string;
-        if (currentDate.getDay() < 10) {
-            day = 0 + currentDate.getDay().toString();
+        var month:string;
+        console.log(currentDate.getDate());
+        if (currentDate.getDate() < 10) {
+            day = 0 + currentDate.getDate().toString();
         } else {
-            day = currentDate.getDay().toString();
+            day = currentDate.getDate().toString();
         }
-        ;
-
-        return currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + day;
+        if (currentDate.getMonth() < 10) {
+            month = 0 + (currentDate.getMonth() + 1).toString();
+        } else {
+            month = (currentDate.getMonth() + 1).toString();
+        }
+        return currentDate.getFullYear() + '-' + month + '-' + day;
     }
 
     static printTime():string {
