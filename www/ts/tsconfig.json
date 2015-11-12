@@ -19,6 +19,7 @@
     "./typings/tsd.d.ts",
     "./masterdata.ts",
     "./meal.ts",
+    "./home.ts",
     "./history.ts",
     "./poop.ts",
     "./constants.ts",

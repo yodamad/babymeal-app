@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Infos biberon</a>
+            <a class="navbar-brand" [router-link]="['/Home']">Accueil</a>
             <a class="navbar-brand" [router-link]="['/Bibber']">Biberon</a>
             <a class="navbar-brand" [router-link]="['/History']">Historique</a>
             <a class="navbar-brand" [router-link]="['/Poop']">Caca</a>
@@ -10,3 +10,4 @@
 </nav>
 
 <router-outlet></router-outlet>
+
