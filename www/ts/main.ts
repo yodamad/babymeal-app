@@ -11,6 +11,7 @@ import {Masterdata} from './masterdata';
 import {Meal, Aliment} from './meal';
 import {Constants} from './constants';
 import {collections} from './externals/collections';
+import {JsonMeal} from "./meal";
 
 @Component({
     selector: 'bibber',
@@ -22,14 +23,22 @@ import {collections} from './externals/collections';
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class AppComponent {
-    public vegetables: Array<Masterdata>;
-    public fruits: Array<Masterdata>;
-    public drugs: Array<Masterdata>;
-    public milktypes: Array<Masterdata>;
-    public mealtypes: Array<Masterdata>;
-    public garnishes: Array<Masterdata>;
+    public vegetables:Array<Masterdata>;
+    public fruits:Array<Masterdata>;
+    public drugs:Array<Masterdata>;
+    public milktypes:Array<Masterdata>;
+    public mealtypes:Array<Masterdata>;
+    public garnishes:Array<Masterdata>;
 
-    constructor(public http: Http) {
+    constructor(public http:Http) {
+        if (localStorage.getItem("mealid")) {
+            var jsonMeal:JsonMeal = new JsonMeal();
+            this.getMeal(localStorage.getItem("mealid")).then(receivedMeal => {
+                console.log('meal received from server : ' + receivedMeal);
+                jsonMeal = receivedMeal;
+                this.meal = JsonMeal.convertToTypescript(jsonMeal);
+            });
+        }
         this.getFruits();
         this.getVegetables();
         this.getDrugs();
@@ -44,8 +53,8 @@ export class AppComponent {
             .subscribe(
                 data => this.vegetables = data._embedded.masterdata,
                 err => console.log('Impossible to retrieve vegetables'),
-            () => console.log('Loaded vegetables')
-        );
+                () => console.log('Loaded vegetables')
+            );
     }
 
     public getFruits() {
@@ -54,8 +63,8 @@ export class AppComponent {
             .subscribe(
                 data => this.fruits = data._embedded.masterdata,
                 err => console.log('Impossible to retrieve fruits'),
-            () => console.log('Loaded fruits')
-        );
+                () => console.log('Loaded fruits')
+            );
     }
 
     public getDrugs() {
@@ -64,8 +73,8 @@ export class AppComponent {
             .subscribe(
                 data => this.drugs = data._embedded.masterdata,
                 err => console.log('Impossible to retrieve drugs'),
-            () => console.log('Loaded drugs')
-        );
+                () => console.log('Loaded drugs')
+            );
     }
 
     public getGarnishes() {
@@ -74,8 +83,8 @@ export class AppComponent {
             .subscribe(
                 data => this.garnishes = data._embedded.masterdata,
                 err => console.log('Impossible to retrieve garnishes'),
-            () => console.log('Loaded garnishes')
-        );
+                () => console.log('Loaded garnishes')
+            );
     }
 
     public getMealTypes() {
@@ -84,8 +93,8 @@ export class AppComponent {
             .subscribe(
                 data => this.mealtypes = data._embedded.masterdata,
                 err => console.log('Impossible to retrieve mealtypes'),
-            () => console.log('Loaded mealtypes')
-        );
+                () => console.log('Loaded mealtypes')
+            );
     }
 
     public getMilkTypes() {
@@ -94,13 +103,23 @@ export class AppComponent {
             .subscribe(
                 data => this.milktypes = data._embedded.masterdata,
                 err => console.log('Impossible to retrieve milktypes'),
-            () => console.log('Loaded milktypes')
-        );
+                () => console.log('Loaded milktypes')
+            );
     }
 
     // Form elements
-    meal: Meal = new Meal;
-    updateMeal(md: Masterdata) {
+    meal:Meal = new Meal;
+
+    getMeal(mealid:string) {
+        console.log('Loading meal ' + mealid);
+        var jsonmeal:JsonMeal = new JsonMeal();
+        return this.http.get(Constants.MEAL_URL + '/' + mealid)
+            .map(res => res.json())
+            .delay(1000)
+            .toPromise();
+    };
+
+    updateMeal(md:Masterdata) {
         if (md.type == Constants.MILKTYPE) {
             AppComponent.updateList(this.meal.bibber.milktypes, md);
         } else if (md.type == Constants.GARNISH) {
@@ -112,27 +131,28 @@ export class AppComponent {
                 this.meal.bibber.garnish = md;
             }
         } else if (md.type == Constants.MEALTYPE) {
-            var found: boolean = false;
+            var found:boolean = false;
             if (this.meal.food.aliments.size() > 0) {
                 console.log('Current aliments : ' + this.meal.food.aliments);
-                this.meal.food.aliments.forEach((aliment: Aliment) => {
-                        console.log('Check aliment ' + aliment)
-                        if (aliment.type.label == md.label) {
-                            console.log('Remove aliment to meal : ' + aliment.type.label);
-                            this.meal.food.aliments.removeElementAtIndex(this.meal.food.aliments.indexOf(aliment));
-                            found = true;
-                        }
+                this.meal.food.aliments.forEach((aliment:Aliment) => {
+                    //console.log('Check aliment ' + aliment)
+                    if (aliment.type.label == md.label) {
+                        console.log('Remove aliment to meal : ' + aliment.type.label);
+                        this.meal.food.aliments.removeElementAtIndex(this.meal.food.aliments.indexOf(aliment));
+                        found = true;
+                    }
                     return true;
                 });
             }
             if (!found) {
-                var newAliment: Aliment = new Aliment;
+                var newAliment:Aliment = new Aliment;
                 newAliment.type = md;
                 this.meal.food.aliments.add(newAliment)
                 console.log('Add aliment to meal : ' + newAliment.type.label);
-                console.log('Updated aliments : ' + this.meal.food.aliments);            }
+                console.log('Updated aliments : ' + this.meal.food.aliments);
+            }
         } else if (md.type == Constants.DRUG) {
-            var tmpMd: Masterdata = AppComponent.cloneMasterdata(md);
+            var tmpMd:Masterdata = Masterdata.cloneMasterdata(md);
             if (this.hasDrug(md)) {
                 console.log('Remove drug' + tmpMd.label);
                 this.meal.drugs.remove(tmpMd);
@@ -143,24 +163,34 @@ export class AppComponent {
         }
     }
 
-    updateAliment(mealtype: Masterdata, tast: Masterdata) {
-            this.meal.food.aliments.forEach((aliment:Aliment) => {
-                if (aliment.type.label == mealtype.label) {
-                    if (!aliment.tasts.contains(tast)) {
-                        console.log('Add tast ' + tast.label + ' to ' + aliment.type.label);
-                        aliment.tasts.add(tast);
-                    } else {
-                        console.log('Remove tast ' + tast.label + ' to ' + aliment.type.label);
-                        aliment.tasts.remove(tast);
-                    }
+    updateAliment(mealtype:Masterdata, tast:Masterdata) {
+        this.meal.food.aliments.forEach((aliment:Aliment) => {
+            if (aliment.type.label == mealtype.label) {
+                if (!aliment.tasts.contains(tast, AppComponent.equalsMasterdata)) {
+                    console.log('Add tast ' + tast.label + ' to ' + aliment.type.label);
+                    aliment.tasts.add(tast);
+                } else {
+                    console.log('Remove tast ' + tast.label + ' to ' + aliment.type.label);
+                    aliment.tasts.remove(tast, AppComponent.equalsMasterdata);
                 }
-                return true;
-            });
+            }
+            return true;
+        });
     }
 
-    selection(md: Masterdata) {
+    static equalsMasterdata = function (md1:Masterdata, md2:Masterdata):boolean {
+        if (!md1) {
+            return false;
+        }
+        if (!md2) {
+            return false;
+        }
+        return md1.label == md2.label && md1.type == md2.type;
+    }
+
+    selection(md:Masterdata) {
         if (md.type == Constants.MILKTYPE) {
-            return this.meal.bibber.milktypes.contains(md) ? 'item-active' : '';
+            return this.meal.bibber.milktypes.contains(md, AppComponent.equalsMasterdata) ? 'item-active' : '';
         } else if (md.type == Constants.GARNISH) {
             return this.meal.bibber.garnish && this.meal.bibber.garnish.label == md.label ? 'item-active' : '';
         } else if (md.type == Constants.DRUG) {
@@ -171,19 +201,19 @@ export class AppComponent {
 
     }
 
-    hasDrug(md: Masterdata): boolean {
-        var tmpMd: Masterdata = AppComponent.cloneMasterdata(md);
+    hasDrug(md:Masterdata):boolean {
+        var tmpMd:Masterdata = Masterdata.cloneMasterdata(md);
         return this.meal.drugs.containsKey(tmpMd)
     }
 
-    drugValue(md: Masterdata): number {
+    drugValue(md:Masterdata):number {
         return this.meal.drugs.getValue(md);
     }
 
-    mealValue(md: Masterdata): number {
-        var quantity: number = 0;
+    mealValue(md:Masterdata):number {
+        var quantity:number = 0;
         if (this.meal.food.aliments.size() > 0) {
-            this.meal.food.aliments.forEach((aliment: Aliment) => {
+            this.meal.food.aliments.forEach((aliment:Aliment) => {
                 if (aliment.type.label == md.label) {
                     quantity = aliment.quantity;
                 }
@@ -193,12 +223,12 @@ export class AppComponent {
         return quantity;
     }
 
-    tastValue(mealType: Masterdata, tast: Masterdata): boolean {
-        var check: boolean = false;
+    tastValue(mealType:Masterdata, tast:Masterdata):boolean {
+        var check:boolean = false;
         if (this.meal.food.aliments.size() > 0) {
-            this.meal.food.aliments.forEach((aliment: Aliment) => {
+            this.meal.food.aliments.forEach((aliment:Aliment) => {
                 if (aliment.type.label == mealType.label) {
-                    check = aliment.tasts.contains(tast);
+                    check = aliment.tasts.contains(tast, AppComponent.equalsMasterdata);
                 }
                 return true;
             });
@@ -206,10 +236,10 @@ export class AppComponent {
         return check;
     }
 
-    hasMealType(md: Masterdata): boolean {
-        var found: boolean = false;
+    hasMealType(md:Masterdata):boolean {
+        var found:boolean = false;
         if (this.meal.food.aliments.size() > 0) {
-            this.meal.food.aliments.forEach((aliment: Aliment) => {
+            this.meal.food.aliments.forEach((aliment:Aliment) => {
                 if (aliment.type.label == md.label) {
                     found = true;
                 }
@@ -219,16 +249,16 @@ export class AppComponent {
         return found;
     }
 
-    isSaltMeal(md: Masterdata): boolean {
+    isSaltMeal(md:Masterdata):boolean {
         return md.additionalData == Constants.VEGETABLE;
     }
 
-    isSugarMeal(md: Masterdata): boolean {
+    isSugarMeal(md:Masterdata):boolean {
         return md.additionalData == Constants.FRUIT;
     }
 
-    setMealQuantity(md: Masterdata, quantity: number) {
-        this.meal.food.aliments.forEach((aliment: Aliment) => {
+    setMealQuantity(md:Masterdata, quantity:number) {
+        this.meal.food.aliments.forEach((aliment:Aliment) => {
             if (md.label == aliment.type.label) {
                 aliment.quantity = quantity;
                 console.log('Adding ' + quantity + ' for ' + md.label);
@@ -237,23 +267,15 @@ export class AppComponent {
         })
     }
 
-    addDrug(md: Masterdata, quantity: number) {
+    addDrug(md:Masterdata, quantity:number) {
         console.log('Adding ' + quantity + ' for ' + md.label);
-        this.meal.drugs.setValue(AppComponent.cloneMasterdata(md), +quantity);
+        this.meal.drugs.setValue(Masterdata.cloneMasterdata(md), +quantity);
     }
 
-    private static cloneMasterdata(md: Masterdata): Masterdata {
-        var tmpMd: Masterdata = new Masterdata();
-        tmpMd.label = md.label;
-        tmpMd.type = md.type;
-        tmpMd.additionalData = md.additionalData;
-        return tmpMd;
-    }
-
-    private static updateList(list: collections.LinkedList<Masterdata>, md: Masterdata) {
-        if (list.contains(md)) {
+    private static updateList(list:collections.LinkedList<Masterdata>, md:Masterdata) {
+        if (list.contains(md, AppComponent.equalsMasterdata)) {
             console.log('Remove ' + md.label);
-            list.remove(md);
+            list.remove(md, AppComponent.equalsMasterdata);
         } else {
             console.log('Add ' + md.label);
             list.add(md);
@@ -261,22 +283,35 @@ export class AppComponent {
     }
 
     public eat() {
-        console.log(this.meal);
-        console.log(this.meal.prepareForPost());
-
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        this.http.post(Constants.MEAL_URL, this.meal.prepareForPost(), {
-            headers: headers
-        })
-            .map(res => res.json())
-        .subscribe(
-            data => console.log('data = ' + data),
-            err => console.log(err),
-            () => console.log('Post complete')
-        );
+        var url:string = Constants.MEAL_URL;
+        if (localStorage.getItem("mealid")) {
+            console.log(this.meal.prepareForPost(localStorage.getItem("mealid")));
+            this.http.post(url, this.meal.prepareForPost(localStorage.getItem("mealid")), {
+                    headers: headers
+                })
+                .map(res => res.json())
+                .subscribe(
+                    data => console.log('data = ' + data),
+                    err => console.log(err),
+                    () => console.log('Post complete')
+                );
+        } else {
+            console.log(this.meal.prepareForPost(null));
+            this.http.post(url, this.meal.prepareForPost(null), {
+                    headers: headers
+                })
+                .map(res => res.json())
+                .subscribe(
+                    data => console.log('data = ' + data),
+                    err => console.log(err),
+                    () => console.log('Post complete')
+                );
+        }
         console.log('Bibber saved');
+        localStorage.removeItem("mealid");
     }
 
     addRegurgitation() {
@@ -287,7 +322,10 @@ export class AppComponent {
         this.meal.regurgitation = false;
     }
 
-    public reset() {
+    public
+    reset() {
         this.meal = new Meal;
+        localStorage.removeItem("mealid");
     }
-};
+}
+;

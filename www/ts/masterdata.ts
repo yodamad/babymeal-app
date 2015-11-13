@@ -9,4 +9,12 @@ export class Masterdata {
     toString():string {
         return this.type + '_' + this.label;
     }
+
+    public static cloneMasterdata(md: Masterdata): Masterdata {
+        var tmpMd: Masterdata = new Masterdata();
+        tmpMd.label = md.label;
+        tmpMd.type = md.type;
+        tmpMd.additionalData = md.additionalData;
+        return tmpMd;
+    }
 }

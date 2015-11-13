@@ -44,6 +44,7 @@
                         </div>
                         <div *ng-if="meal.comments"><i>comments: </i>{{meal.comments}}</div>
                         <div *ng-if="meal.withRegurgitation"><b>Regurgitation</b></div>
+                        <button class="btn btn-default" style="margin-bottom: 10px" (click)="setCurrentMeal(meal.id)">Modifier</button>
                     </div>
                 </div>
             </div>

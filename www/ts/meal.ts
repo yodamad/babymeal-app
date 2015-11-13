@@ -47,6 +47,7 @@ export class DrugInfo {
 }
 
 export class JsonMeal {
+    public id: string;
     public date: string;
     public time: string;
     public bibber: JsonBibber = new JsonBibber;
@@ -54,6 +55,56 @@ export class JsonMeal {
     public drugs: Array<DrugInfo> = new Array<DrugInfo>();
     public comments;
     public withRegurgitation:boolean;
+
+    static convertToTypescript(jsonMeal: JsonMeal): Meal {
+        console.log('Converting meal to ts...')
+        var meal: Meal = new Meal();
+        meal.mealdate = jsonMeal.date;
+        meal.mealtime = jsonMeal.time;
+
+        var tsBibber: Bibber = new Bibber();
+        tsBibber.quantity = jsonMeal.bibber.quantity;
+        tsBibber.milktypes = new collections.LinkedList<Masterdata>();
+
+        for (var milk in jsonMeal.bibber.milks) {
+            tsBibber.milktypes.add(jsonMeal.bibber.milks[milk]);
+        }
+        tsBibber.garnish = jsonMeal.bibber.garnish;
+        tsBibber.quantity = jsonMeal.bibber.quantity;
+        meal.bibber = tsBibber;
+
+        var tsFood: Food = new Food();
+        tsFood.aliments = new collections.LinkedList<Aliment>();
+        for (var aliment in jsonMeal.food.aliments) {
+            var tsAliment = new Aliment();
+            tsAliment.quantity = jsonMeal.food.aliments[aliment].quantity;
+            tsAliment.type = jsonMeal.food.aliments[aliment].type;
+            tsAliment.tasts = new collections.LinkedList<Masterdata>();
+            for (var tast in jsonMeal.food.aliments[aliment].tasts) {
+                tsAliment.tasts.add(jsonMeal.food.aliments[aliment].tasts[tast]);
+            }
+            tsFood.aliments.add(tsAliment);
+        }
+        meal.food = tsFood;
+
+        var tsDrugs = new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.type + '_' + key.label);
+        for (var drug in jsonMeal.drugs) {
+            var tmpDrug: DrugInfo =  this.cloneDrugInfo(jsonMeal.drugs[drug]);
+            tsDrugs.setValue(tmpDrug.drugType, tmpDrug.quantity)
+        }
+        meal.drugs = tsDrugs;
+
+        meal.regurgitation = jsonMeal.withRegurgitation;
+        meal.comments = jsonMeal.comments;
+        return meal;
+    }
+
+    private static cloneDrugInfo(di: DrugInfo): DrugInfo {
+        var tmp: DrugInfo = new DrugInfo();
+        tmp.quantity = +di.quantity;
+        tmp.drugType = Masterdata.cloneMasterdata(di.drugType);
+        return tmp;
+    }
 }
 
 export class Meal {
@@ -61,13 +112,16 @@ export class Meal {
     public mealtime: string = Constants.printTime();
     public bibber: Bibber = new Bibber;
     public food: Food = new Food;
-    public drugs: collections.Dictionary<Masterdata, number> = new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.toString());
+    public drugs: collections.Dictionary<Masterdata, number> = new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.type + '_' + key.label);
     public drugsInfo: collections.LinkedList<DrugInfo> = new collections.LinkedList<DrugInfo>();
     public comments;
     public regurgitation:boolean = false;
 
-    prepareForPost(): string {
+    prepareForPost(mealid:string): string {
         var cleanMeal: JsonMeal = new JsonMeal();
+        if (mealid) {
+            cleanMeal.id = mealid;
+        }
         cleanMeal.date = this.mealdate;
         cleanMeal.time = this.mealtime;
 

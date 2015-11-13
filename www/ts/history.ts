@@ -36,7 +36,7 @@ export class HistoryComponent {
     };
 
     hasMilks(bibber:JsonBibber):boolean {
-        console.log('Check milks : ' + bibber.milks);
+        //console.log('Check milks : ' + bibber.milks);
         if (bibber.milks) {
             return bibber.milks.length > 0;
         } else {
@@ -45,7 +45,7 @@ export class HistoryComponent {
     }
 
     hasFood(food:JsonFood):boolean {
-        console.log('Check food');
+        //console.log('Check food');
         if (food) {
             if (food.aliments) {
                 return food.aliments.length > 0;
@@ -58,7 +58,7 @@ export class HistoryComponent {
     }
 
     hasTast(aliment:JsonAliment):boolean {
-        console.log('Check aliment');
+        //console.log('Check aliment');
         if (aliment) {
             if (aliment.tasts) {
                 return aliment.tasts.length > 0;
@@ -68,5 +68,11 @@ export class HistoryComponent {
         } else {
             return false;
         }
+    }
+
+    setCurrentMeal(mealid: string) {
+        console.log('Add current meal in localstorage');
+        localStorage.setItem("mealid", mealid);
+        location.href = "/#/Bibber";
     }
 }
