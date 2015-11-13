@@ -6,7 +6,7 @@ import {Http, HTTP_PROVIDERS, Headers} from 'angular2/http';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Constants} from './constants';
-import {JsonMeal, JsonBibber, JsonFood, JsonAliment} from './meal';
+import {JsonMeal, JsonBibber, JsonFood, JsonAliment, DrugInfo} from './meal';
 
 @Component({
     selector: 'history-app',
@@ -74,5 +74,12 @@ export class HistoryComponent {
         console.log('Add current meal in localstorage');
         localStorage.setItem("mealid", mealid);
         location.href = "/#/Bibber";
+    }
+
+    hasDrugs(drugs: Array<DrugInfo>): boolean {
+        if (drugs) {
+            return drugs.length > 0;
+        }
+        return false;
     }
 }

@@ -8,10 +8,9 @@ import {Http, HTTP_PROVIDERS, Headers} from 'angular2/http';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {RouteParams} from 'angular2/router';
 import {Masterdata} from './masterdata';
-import {Meal, Aliment} from './meal';
+import {JsonMeal, Meal, Aliment, DrugInfo} from './meal';
 import {Constants} from './constants';
 import {collections} from './externals/collections';
-import {JsonMeal} from "./meal";
 
 @Component({
     selector: 'bibber',

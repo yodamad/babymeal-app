@@ -31,7 +31,7 @@
                         <div *ng-if="hasFood(meal.food)">
                             <i>repas : </i>
                             <ul class="list-group">
-                                <li class="list-group-item list-group-item-danger"
+                                <li class="list-group-item list-group-item-warning"
                                     *ng-for="#aliment of meal.food.aliments">
                                     <ul class="list-inline">
                                         <li>{{aliment.type.label}}</li>
@@ -42,8 +42,22 @@
                             </ul>
                             <hr>
                         </div>
-                        <div *ng-if="meal.comments"><i>comments: </i>{{meal.comments}}</div>
-                        <div *ng-if="meal.withRegurgitation"><b>Regurgitation</b></div>
+                        <div *ng-if="hasDrugs(meal.drugs)">
+                            <i>médicaments : </i>
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-danger"
+                                    *ng-for="#drug of meal.drugs">
+                                    <ul class="list-inline">
+                                        <li>{{drug.drugType.label}} ({{drug.quantity}}{{drug.drugType.additionalData}})</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <hr>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-heading" *ng-if="meal.comments"><i>comments: </i>{{meal.comments}}</li>
+                            <li class="list-group-item list-group-item-heading" *ng-if="meal.withRegurgitation"><b>Regurgitation</b></li>
+                        </ul>
                         <button class="btn btn-default" style="margin-bottom: 10px" (click)="setCurrentMeal(meal.id)">Modifier</button>
                     </div>
                 </div>
