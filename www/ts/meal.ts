@@ -87,7 +87,7 @@ export class JsonMeal {
         }
         meal.food = tsFood;
 
-        var tsDrugs = new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.type + '_' + key.label);
+        var tsDrugs = new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.type + '_' + key.label + '_' + key.additionalData);
         for (var drug in jsonMeal.drugs) {
             var tmpDrug: DrugInfo =  this.cloneDrugInfo(jsonMeal.drugs[drug]);
             tsDrugs.setValue(tmpDrug.drugType, tmpDrug.quantity)
@@ -112,7 +112,8 @@ export class Meal {
     public mealtime: string = Constants.printTime();
     public bibber: Bibber = new Bibber;
     public food: Food = new Food;
-    public drugs: collections.Dictionary<Masterdata, number> = new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.type + '_' + key.label);
+    public drugs: collections.Dictionary<Masterdata, number> =
+        new collections.Dictionary<Masterdata, number>((key: Masterdata) => key.type + '_' + key.label + '_' + key.additionalData);
     public drugsInfo: collections.LinkedList<DrugInfo> = new collections.LinkedList<DrugInfo>();
     public comments;
     public regurgitation:boolean = false;

@@ -8,7 +8,7 @@ export class Masterdata {
     public unit: string;
 
     toString():string {
-        return this.type + '_' + this.label;
+        return this.type + '_' + this.label + '_' + this.additionalData;
     }
 
     public static cloneMasterdata(md: Masterdata): Masterdata {
