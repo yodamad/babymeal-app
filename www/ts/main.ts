@@ -184,7 +184,7 @@ export class AppComponent {
         if (!md2) {
             return false;
         }
-        return md1.label == md2.label && md1.type == md2.type;
+        return md1.label == md2.label && md1.type == md2.type && md1.additionalData == md2.additionalData;
     }
 
     selection(md:Masterdata) {
