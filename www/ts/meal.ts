@@ -43,7 +43,7 @@ export class JsonAliment {
 
 export class DrugInfo {
     public drugType: Masterdata;
-    public quantity: number;
+    public quantity: number = 0;
 }
 
 export class JsonMeal {
@@ -57,7 +57,7 @@ export class JsonMeal {
     public withRegurgitation:boolean;
 
     static convertToTypescript(jsonMeal: JsonMeal): Meal {
-        console.log('Converting meal to ts...')
+        console.log('Converting meal to ts...');
         var meal: Meal = new Meal();
         meal.mealdate = jsonMeal.date;
         meal.mealtime = jsonMeal.time;
@@ -96,6 +96,7 @@ export class JsonMeal {
 
         meal.regurgitation = jsonMeal.withRegurgitation;
         meal.comments = jsonMeal.comments;
+        console.log('Conversion meal to ts ok...')
         return meal;
     }
 

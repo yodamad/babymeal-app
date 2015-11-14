@@ -157,7 +157,7 @@ export class AppComponent {
                 this.meal.drugs.remove(tmpMd);
             } else {
                 console.log('Add drug' + tmpMd.label);
-                this.meal.drugs.setValue(tmpMd, 1);
+                this.meal.drugs.setValue(tmpMd, null);
             }
         }
     }
