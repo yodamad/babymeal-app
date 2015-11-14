@@ -94,7 +94,7 @@
                             <input *ng-if="hasDrug(drug)" type="number" step="0.5"
                                    (mouseout)="addDrug(drug, $event.target.value)"
                                    (load)="addDrug(drug, $event.target.value)" [value]="drugValue(drug)">
-                            {{drug.additionalData}}
+                            {{drug.unit}}
                         </div>
                     </div>
                 </ul>
