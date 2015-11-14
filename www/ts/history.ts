@@ -3,7 +3,7 @@
  */
 import {Component, View, FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Http, HTTP_PROVIDERS, Headers} from 'angular2/http';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Constants} from './constants';
 import {JsonMeal, JsonBibber, JsonFood, JsonAliment, DrugInfo} from './meal';
@@ -20,7 +20,7 @@ export class HistoryComponent {
 
     public meals:Array<JsonMeal> = new Array<JsonMeal>();
 
-    constructor(public http:Http) {
+    constructor(public http:Http, private router: Router) {
         this.getMeals();
     }
 
@@ -73,7 +73,8 @@ export class HistoryComponent {
     setCurrentMeal(mealid: string) {
         console.log('Add current meal in localstorage');
         localStorage.setItem("mealid", mealid);
-        location.href = "/#/Bibber";
+        //location.href = "/#/Bibber";
+        this.router.navigate(['Bibber']);
     }
 
     hasDrugs(drugs: Array<DrugInfo>): boolean {
