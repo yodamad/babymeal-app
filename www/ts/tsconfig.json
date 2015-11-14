@@ -18,6 +18,7 @@
     "./externals/collections.ts",
     "./typings/tsd.d.ts",
     "./masterdata.ts",
+    "./admin.ts",
     "./meal.ts",
     "./home.ts",
     "./history.ts",

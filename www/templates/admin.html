@@ -1,0 +1,45 @@
+<form>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="margin-bottom: 5px">
+                    Administration
+                </h4>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" required [(ng-model)]="item.label" placeholder="Libellé" ng-control="label" #label="form">
+                    <div [hidden]="label.valid" class="alert alert-danger" style="margin-bottom: 5px; padding: 5px; font-size: small">
+                        Libellé obligatoire
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" id="selection" required [(ng-model)]="item.type" ng-control="selection" #selection="form">
+                        <option value="DRUG">Médicament</option>
+                        <option value="MILKTYPE">Lait</option>
+                        <option value="MEALTYPE">Repas</option>
+                        <option value="FRUIT">Fruit</option>
+                        <option value="VEGETABLE">Légume</option>
+                        <option value="GARNISH">Garniture</option>
+                    </select>
+                    <div [hidden]="selection.valid" class="alert alert-danger" style="margin-bottom: 5px; padding: 5px; font-size: small">
+                       Type obligatoire
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" [(ng-model)]="item.unit"
+                           placeholder="Unité (ml, glacon, ...)">
+                </div>
+
+                <div class="form-group">
+                    <input *ng-if="withAdditionalData()" type="text" class="form-control"
+                           [(ng-model)]="item.additionalData"
+                           placeholder="Type (Fruit, Légume)">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <button type="submit" class="btn btn-default" style="margin-bottom: 10px" (click)="save()">Sauvegarde</button>
+</form>

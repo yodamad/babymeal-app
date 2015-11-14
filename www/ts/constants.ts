@@ -14,7 +14,8 @@ export class Constants {
     // URLs
     public static ROOT_URL: string = "http://babymeal-jahland.rhcloud.com";
     //public static ROOT_URL: string = "http://localhost:8080";
-    public static MD_URL: string = Constants.ROOT_URL + "/masterdata/search/findByType?type=";
+    public static MD_ROOT_URL: string = Constants.ROOT_URL + "/masterdata";
+    public static MD_URL: string = Constants.MD_ROOT_URL + "/search/findByType?type=";
     public static MEAL_URL: string = Constants.ROOT_URL + "/meal";
     public static POOP_URL: string = Constants.ROOT_URL + "/poop";
     public static DRUGS_URL: string = Constants.MD_URL + Constants.DRUG;
@@ -28,7 +29,6 @@ export class Constants {
         var currentDate:Date = new Date();
         var day:string;
         var month:string;
-        console.log(currentDate.getDate());
         if (currentDate.getDate() < 10) {
             day = 0 + currentDate.getDate().toString();
         } else {

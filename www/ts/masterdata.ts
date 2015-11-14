@@ -5,6 +5,7 @@ export class Masterdata {
     public label: string;
     public type: string;
     public additionalData: string;
+    public unit: string;
 
     toString():string {
         return this.type + '_' + this.label;
