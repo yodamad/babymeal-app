@@ -17,6 +17,7 @@ export class Constants {
     public static MD_ROOT_URL: string = Constants.ROOT_URL + "/masterdata";
     public static MD_URL: string = Constants.MD_ROOT_URL + "/search/findByType?type=";
     public static MEAL_URL: string = Constants.ROOT_URL + "/meal";
+    public static SORTED_BY_DATE_DESC: string = "?sort=date,time,desc";
     public static POOP_URL: string = Constants.ROOT_URL + "/poop";
     public static DRUGS_URL: string = Constants.MD_URL + Constants.DRUG;
     public static MEALTYPES_URL: string = Constants.MD_URL + Constants.MEALTYPE;

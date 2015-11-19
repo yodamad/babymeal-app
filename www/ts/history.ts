@@ -18,7 +18,7 @@ import {JsonMeal, JsonBibber, JsonFood, JsonAliment, DrugInfo} from './meal';
 })
 export class HistoryComponent {
 
-    public meals:Array<JsonMeal> = new Array<JsonMeal>();
+    public meals:Array<JsonMeal> = [];
 
     constructor(public http:Http, private router: Router) {
         this.getMeals();
@@ -26,7 +26,7 @@ export class HistoryComponent {
 
     getMeals() {
         console.log('Loading meals...');
-        this.http.get(Constants.MEAL_URL)
+        this.http.get(Constants.MEAL_URL + Constants.SORTED_BY_DATE_DESC)
             .map(res => res.json())
             .subscribe(
                 data => this.meals = data._embedded.meal,
@@ -82,5 +82,22 @@ export class HistoryComponent {
             return drugs.length > 0;
         }
         return false;
+    }
+
+    withMilk(meal:JsonMeal): boolean {
+        return meal.bibber.quantity > 0;
+    }
+
+    noMilk(meal:JsonMeal): boolean {
+        if (meal.bibber) {
+            console.log("meal with " + meal.bibber.quantity);
+            if (meal.bibber.quantity) {
+                return meal.bibber.quantity == 0;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
     }
 }
