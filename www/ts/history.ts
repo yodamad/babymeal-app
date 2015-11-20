@@ -26,7 +26,7 @@ export class HistoryComponent {
 
     getMeals() {
         console.log('Loading meals...');
-        this.http.get(Constants.MEAL_URL + Constants.SORTED_BY_DATE_DESC)
+        this.http.get(Constants.MEAL_URL + Constants.SORTED_BY_DATE_TIME_DESC)
             .map(res => res.json())
             .subscribe(
                 data => this.meals = data._embedded.meal,
