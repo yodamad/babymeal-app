@@ -60,4 +60,11 @@ export class Constants {
         }
         return hours + ':' + minutes;
     }
+
+    static computeDelay(originalDate: string, originalTime: string) {
+        var currentDate: Date = new Date();
+        var originalTimestamp: Date = new Date(originalDate + 'T' + originalTime + 'Z');
+        console.log('Comparing ' + currentDate + ' to ' + originalTimestamp);
+        return currentDate.getTime() - originalTimestamp.getTime();
+    }
 }

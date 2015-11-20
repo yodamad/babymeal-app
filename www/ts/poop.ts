@@ -18,7 +18,7 @@ import {Constants} from './constants';
 export class PoopComponent {
 
     public supo:boolean = false;
-    public poops:Array<Poop> = new Array<Poop>();
+    public poops:Array<Poop> = [];
     public currentDate: string = Constants.printDate();
     public currentTime: string = Constants.printTime();
 
@@ -47,8 +47,6 @@ export class PoopComponent {
 
     poop() {
         var poopy:Poop = new Poop();
-        var currentDate:Date = new Date();
-        currentDate.getDate();
         poopy.date = this.currentDate;
         poopy.time = this.currentTime;
         poopy.withSuppository = this.supo;
@@ -66,6 +64,17 @@ export class PoopComponent {
             );
         console.log('Poop saved');
 
+    }
+
+    getDelay() {
+        var tmpPoop: Poop = this.poops[0];
+        var delay: Date = new Date(Constants.computeDelay(tmpPoop.date, tmpPoop.time));
+        var strDelay: string = ''
+        if (delay.getDate() > 1) {
+            strDelay = (delay.getDate() - 1) + 'j ';
+        }
+        strDelay += delay.getHours() + 'h' + delay.getMinutes() + 'min';
+        return strDelay;
     }
 
     reset() {
