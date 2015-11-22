@@ -16,6 +16,7 @@ export class Masterdata {
         tmpMd.label = md.label;
         tmpMd.type = md.type;
         tmpMd.additionalData = md.additionalData;
+        tmpMd.unit = md.unit;
         return tmpMd;
     }
 }
