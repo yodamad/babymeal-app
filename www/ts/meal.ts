@@ -12,7 +12,7 @@ export class Bibber {
 }
 
 export class JsonBibber {
-    public milks: Array<Masterdata> = new Array<Masterdata>();
+    public milks: Array<Masterdata> = [];
     public quantity: number;
     public garnish: Masterdata;
 }
@@ -22,7 +22,7 @@ export class Food {
 }
 
 export class JsonFood {
-    public aliments: Array<JsonAliment> = new Array<JsonAliment>();
+    public aliments: Array<JsonAliment> = [];
 }
 
 export class Aliment {
@@ -38,7 +38,7 @@ export class Aliment {
 export class JsonAliment {
     public type: Masterdata;
     public quantity: number;
-    public tasts: Array<Masterdata> = new Array<Masterdata>();
+    public tasts: Array<Masterdata> = [];
 }
 
 export class DrugInfo {
@@ -52,7 +52,7 @@ export class JsonMeal {
     public time: string;
     public bibber: JsonBibber = new JsonBibber;
     public food: JsonFood = new JsonFood;
-    public drugs: Array<DrugInfo> = new Array<DrugInfo>();
+    public drugs: Array<DrugInfo> = [];
     public comments;
     public withRegurgitation:boolean;
 
@@ -96,7 +96,7 @@ export class JsonMeal {
 
         meal.regurgitation = jsonMeal.withRegurgitation;
         meal.comments = jsonMeal.comments;
-        console.log('Conversion meal to ts ok...')
+        console.log('Conversion meal to ts ok...');
         return meal;
     }
 
@@ -144,14 +144,14 @@ export class Meal {
         });
         cleanMeal.food = cleanFood;
 
-        var info: Array<DrugInfo> = new Array<DrugInfo>();
+        var info: Array<DrugInfo> = [];
         this.drugs.forEach((key: Masterdata, value: number) => {
             var druginfo: DrugInfo = new DrugInfo();
             druginfo.drugType = key;
             druginfo.quantity = value;
             console.log('Convert to drugInfo : ' + druginfo.drugType + ', ' + druginfo.quantity);
             info.push(druginfo);
-        })
+        });
         console.log('Drugs info : ' + info);
         cleanMeal.drugs = info;
 
