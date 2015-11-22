@@ -74,7 +74,7 @@ export class HistoryComponent {
         console.log('Add current meal in localstorage');
         localStorage.setItem("mealid", mealid);
         //location.href = "/#/Bibber";
-        this.router.navigate(['Bibber']);
+        this.router.navigate(['/Bibber']);
     }
 
     hasDrugs(drugs: Array<DrugInfo>): boolean {
@@ -90,7 +90,6 @@ export class HistoryComponent {
 
     noMilk(meal:JsonMeal): boolean {
         if (meal.bibber) {
-            console.log("meal with " + meal.bibber.quantity);
             if (meal.bibber.quantity) {
                 return meal.bibber.quantity == 0;
             } else {
