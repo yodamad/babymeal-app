@@ -28,7 +28,7 @@ export class PoopComponent {
 
     getPoops() {
         console.log('Loading poops...');
-        this.http.get(Constants.POOP_URL + Constants.SORTED_BY_DATE_DESC)
+        this.http.get(Constants.POOP_URL + Constants.SORTED_BY_DATE_TIME_DESC)
             .map(res => res.json())
             .subscribe(
                 data => this.poops = data._embedded.poop,
