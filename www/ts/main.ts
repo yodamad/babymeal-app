@@ -11,6 +11,7 @@ import {Masterdata} from './masterdata';
 import {JsonMeal, Meal, Aliment, DrugInfo} from './meal';
 import {Constants} from './constants';
 import {collections} from './externals/collections';
+import {SecurityUtils} from "./security";
 
 @Component({
     selector: 'bibber',
@@ -47,7 +48,7 @@ export class AppComponent {
     }
 
     public getVegetables() {
-        this.http.get(Constants.VEGETABLES_URL)
+        this.http.get(Constants.VEGETABLES_URL, SecurityUtils.authentication())
             .map(res => res.json())
             .subscribe(
                 data => this.vegetables = data._embedded.masterdata,
@@ -57,7 +58,7 @@ export class AppComponent {
     }
 
     public getFruits() {
-        this.http.get(Constants.FRUITS_URL)
+        this.http.get(Constants.FRUITS_URL, SecurityUtils.authentication())
             .map(res => res.json())
             .subscribe(
                 data => this.fruits = data._embedded.masterdata,
@@ -67,7 +68,7 @@ export class AppComponent {
     }
 
     public getDrugs() {
-        this.http.get(Constants.DRUGS_URL)
+        this.http.get(Constants.DRUGS_URL, SecurityUtils.authentication())
             .map(res => res.json())
             .subscribe(
                 data => this.drugs = data._embedded.masterdata,
@@ -77,7 +78,7 @@ export class AppComponent {
     }
 
     public getGarnishes() {
-        this.http.get(Constants.GARNISHES_URL)
+        this.http.get(Constants.GARNISHES_URL, SecurityUtils.authentication())
             .map(res => res.json())
             .subscribe(
                 data => this.garnishes = data._embedded.masterdata,
@@ -87,7 +88,7 @@ export class AppComponent {
     }
 
     public getMealTypes() {
-        this.http.get(Constants.MEALTYPES_URL)
+        this.http.get(Constants.MEALTYPES_URL, SecurityUtils.authentication())
             .map(res => res.json())
             .subscribe(
                 data => this.mealtypes = data._embedded.masterdata,
@@ -97,7 +98,7 @@ export class AppComponent {
     }
 
     public getMilkTypes() {
-        this.http.get(Constants.MILKTYPES_URL)
+        this.http.get(Constants.MILKTYPES_URL, SecurityUtils.authentication())
             .map(res => res.json())
             .subscribe(
                 data => this.milktypes = data._embedded.masterdata,
@@ -112,7 +113,7 @@ export class AppComponent {
     getMeal(mealid:string) {
         console.log('Loading meal ' + mealid);
         var jsonmeal:JsonMeal = new JsonMeal();
-        return this.http.get(Constants.MEAL_URL + '/' + mealid)
+        return this.http.get(Constants.MEAL_URL + '/' + mealid, SecurityUtils.authentication())
             .map(res => res.json())
             .delay(1000)
             .toPromise();
@@ -282,15 +283,15 @@ export class AppComponent {
     }
 
     public eat() {
-        var headers = new Headers();
+        var headers = SecurityUtils.authenticationHeader();
         headers.append('Content-Type', 'application/json');
 
         var url:string = Constants.MEAL_URL;
         if (localStorage.getItem("mealid")) {
             console.log(this.meal.prepareForPost(localStorage.getItem("mealid")));
             this.http.post(url, this.meal.prepareForPost(localStorage.getItem("mealid")), {
-                    headers: headers
-                })
+                headers: headers
+            })
                 .map(res => res.json())
                 .subscribe(
                     data => console.log('data = ' + data),

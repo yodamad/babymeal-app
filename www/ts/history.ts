@@ -7,6 +7,7 @@ import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Constants} from './constants';
 import {JsonMeal, JsonBibber, JsonFood, JsonAliment, DrugInfo} from './meal';
+import {SecurityUtils} from "./security";
 
 @Component({
     selector: 'history-app',
@@ -26,7 +27,7 @@ export class HistoryComponent {
 
     getMeals() {
         console.log('Loading meals...');
-        this.http.get(Constants.MEAL_URL + Constants.SORTED_BY_DATE_TIME_DESC)
+        this.http.get(Constants.MEAL_URL + Constants.SORTED_BY_DATE_TIME_DESC, SecurityUtils.authentication())
             .map(res => res.json())
             .subscribe(
                 data => this.meals = data._embedded.meal,

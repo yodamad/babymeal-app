@@ -24,6 +24,7 @@
     "./history.ts",
     "./poop.ts",
     "./constants.ts",
+    "./security.ts",
     "./typings/systemjs/systemjs.d.ts",
     "../node_modules/angular2/bundles/typings/angular2/http.d.ts",
     "../node_modules/angular2/bundles/typings/angular2/angular2.d.ts",

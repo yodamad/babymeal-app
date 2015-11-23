@@ -6,6 +6,7 @@ import {Http, HTTP_PROVIDERS, Headers} from 'angular2/http';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Constants} from './constants';
+import {SecurityUtils} from './security';
 
 @Component({
     selector: 'poop-app',
@@ -28,7 +29,7 @@ export class PoopComponent {
 
     getPoops() {
         console.log('Loading poops...');
-        this.http.get(Constants.POOP_URL + Constants.SORTED_BY_DATE_TIME_DESC)
+        this.http.get(Constants.POOP_URL + Constants.SORTED_BY_DATE_TIME_DESC, SecurityUtils.authentication())
             .map(res => res.json())
             .subscribe(
                 data => this.poops = data._embedded.poop,
@@ -50,7 +51,7 @@ export class PoopComponent {
         poopy.date = this.currentDate;
         poopy.time = this.currentTime;
         poopy.withSuppository = this.supo;
-        var headers = new Headers();
+        var headers: Headers = SecurityUtils.authenticationHeader();
         headers.append('Content-Type', 'application/json');
 
         this.http.post(Constants.POOP_URL, JSON.stringify(poopy), {
