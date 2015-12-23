@@ -6,6 +6,7 @@ import {Http, Headers, HTTP_PROVIDERS} from 'angular2/http';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {Constants} from './constants';
 import {Masterdata} from './masterdata';
+import {SecurityUtils} from "./security";
 
 @Component({
     selector: 'admin-app',
@@ -27,8 +28,9 @@ export class AdminComponent {
     save() {
         console.log(JSON.stringify(this.item));
 
-        var headers = new Headers();
+        var headers = SecurityUtils.authenticationHeader();
         headers.append('Content-Type', 'application/json');
+
         this.http.post(Constants.MD_ROOT_URL, JSON.stringify(this.item), {
                 headers: headers
             })
