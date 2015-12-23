@@ -10,6 +10,7 @@ export class Constants {
     public static MILKTYPE: string = 'MILKTYPE';
     public static FRUIT: string = 'FRUIT';
     public static VEGETABLE: string = 'VEGETABLE';
+    public static MEAT: string = 'MEAT';
 
     // URLs
     public static ROOT_URL: string = "http://babymeal-jahland.rhcloud.com";
@@ -26,6 +27,7 @@ export class Constants {
     public static MILKTYPES_URL: string = Constants.MD_URL + Constants.MILKTYPE;
     public static FRUITS_URL: string = Constants.MD_URL + Constants.FRUIT;
     public static VEGETABLES_URL: string = Constants.MD_URL + Constants.VEGETABLE;
+    public static MEAT_URL: string = Constants.MD_URL + Constants.MEAT;
 
     static printDate():string {
         var currentDate:Date = new Date();

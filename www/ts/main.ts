@@ -29,6 +29,7 @@ export class AppComponent {
     public milktypes:Array<Masterdata>;
     public mealtypes:Array<Masterdata>;
     public garnishes:Array<Masterdata>;
+    public meats:Array<Masterdata>;
 
     constructor(public http:Http) {
         if (localStorage.getItem("mealid")) {
@@ -45,6 +46,7 @@ export class AppComponent {
         this.getGarnishes();
         this.getMealTypes();
         this.getMilkTypes();
+        this.getMeats();
     }
 
     public getVegetables() {
@@ -94,6 +96,16 @@ export class AppComponent {
                 data => this.mealtypes = data._embedded.masterdata,
                 err => console.log('Impossible to retrieve mealtypes'),
                 () => console.log('Loaded mealtypes')
+            );
+    }
+
+    public getMeats() {
+        this.http.get(Constants.MEAT_URL, SecurityUtils.authentication())
+            .map(res => res.json())
+            .subscribe(
+                data => this.meats = data._embedded.masterdata,
+                err => console.log('Impossible to retrieve meats'),
+                () => console.log('Loaded meats')
             );
     }
 
@@ -255,6 +267,10 @@ export class AppComponent {
 
     isSugarMeal(md:Masterdata):boolean {
         return md.additionalData == Constants.FRUIT;
+    }
+
+    isSolidMeal(md:Masterdata):boolean {
+        return md.additionalData == Constants.MEAT;
     }
 
     setMealQuantity(md:Masterdata, quantity:number) {
