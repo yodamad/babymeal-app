@@ -13,7 +13,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Type de lait</label>
 
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <ul class="list-group">
                     <li *ng-for="#milktype of milktypes" class="list-group-item" (click)="updateMeal(milktype)"
                         [ng-class]="selection(milktype)">{{milktype.label}} ({{milktype.additionalData}})
@@ -93,7 +93,7 @@
     <div class="panel panel-danger">
         <div class="panel-heading">Médicaments</div>
         <div class="form-group">
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 <ul class="list-group">
                     <div *ng-for="#drug of drugs">
                         <li class="list-group-item" (click)="updateMeal(drug)" [ng-class]="selection(drug)">
@@ -111,23 +111,23 @@
         </div>
     </div>
     <div class="panel panel-warning">
-        <div class="panel-heading">Commentaires</div>
-        <div class="panel-title">
+        <div class="panel-heading" style="margin-bottom: 15px">Commentaires</div>
+        <div class="panel-title" style="margin-bottom: 10px">
             <textarea [(ng-model)]="meal.comments"></textarea>
         </div>
-        <div class="panel panel-success" *ng-if="!meal.regurgitation">
-            <h4 class="panel-title" (click)="addRegurgitation()">
+        <div class="panel clearfix" *ng-if="!meal.regurgitation">
+            <div class="panel-title col-md-offset-5 col-md-2" style="background-color: green; color: white" (click)="addRegurgitation()">
                 Sans regurgitation
-            </h4>
+            </div>
         </div>
-        <div class="panel panel-danger" *ng-if="meal.regurgitation">
-            <h2 class="panel-title" (click)="removeRegurgitation()">
+        <div class="panel clearfix" *ng-if="meal.regurgitation">
+            <div class="panel-title col-md-offset-5 col-md-2" style="background-color: darkred; color: white" (click)="removeRegurgitation()">
                 Avec regurgitation
-            </h2>
+            </div>
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div>
             <button [disabled]="!hf.form.valid" class="btn btn-default" (click)="eat()" data-toggle="modal"
                     data-target="#successmodal">Miam
             </button>
