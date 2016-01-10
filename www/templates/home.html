@@ -1,28 +1,36 @@
+<div><b>News</b></div>
+<hr class="col-lg-2 col-lg-offset-5" style="margin-top: 5px; margin-bottom: 5px">
+<br>
+<div class="clearfix">
+<div *ng-if="loading"><i>Loading...</i></div>
+<div *ng-for="#meal of meals" class="clearfix"><div *ng-if="meal.comments" class="pull-left">{{meal.date}} {{meal.time}} - {{meal.comments}}</div></div>
+</div>
+<hr>
 <div class="panel panel-info">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a href="#/Bibber">Biberon</a>
+            <a href="#/Bibber" style="text-decoration: none">Biberon</a>
         </h4>
     </div>
 </div>
 <div class="panel panel-success">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a href="#/History">Historique</a>
+            <a href="#/History" style="text-decoration: none">Historique</a>
         </h4>
     </div>
 </div>
 <div class="panel panel-danger">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a href="#/Poop">Caca</a>
+            <a href="#/Poop" style="text-decoration: none">Caca</a>
         </h4>
     </div>
 </div>
 <div class="panel panel-warning">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a href="#/Admin">Admin</a>
+            <a href="#/Admin" style="text-decoration: none">Admin</a>
         </h4>
     </div>
 </div>
